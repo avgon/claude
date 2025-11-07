@@ -15,12 +15,8 @@
   },
   "dependencies": {
     "@browserbasehq/stagehand": "^2.0.0",
-    "@browserbasehq/agent-browse": "latest",
-    "@tavily/core": "^1.0.0",
-    "@supermemory/tools": "^1.0.0",
     "gpt-tokenizer": "^2.4.0",
-    "dotenv": "^16.4.5",
-    "@modelcontextprotocol/sdk": "^1.0.0"
+    "dotenv": "^16.4.5"
   },
   "devDependencies": {
     "@types/node": "^22.0.0"

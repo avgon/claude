@@ -93,10 +93,7 @@ class BrowserAgent {
     try {
       console.log(`🎬 Acting: "${instruction}"`);
 
-      const result = await this.stagehand.act({
-        action: instruction,
-        ...options
-      });
+      const result = await this.page.act(instruction, options);
 
       console.log('✅ Action completed');
       return result;
@@ -120,7 +117,7 @@ class BrowserAgent {
         options.schema = schema;
       }
 
-      const result = await this.stagehand.extract(options);
+      const result = await this.page.extract(options);
 
       console.log('✅ Extraction complete');
       return result;
@@ -138,8 +135,9 @@ class BrowserAgent {
     try {
       console.log('👀 Observing page...');
 
-      const options = instruction ? { instruction } : {};
-      const result = await this.stagehand.observe(options);
+      const result = instruction
+        ? await this.page.observe(instruction)
+        : await this.page.observe();
 
       console.log('✅ Observation complete');
       return result;
@@ -152,16 +150,21 @@ class BrowserAgent {
   /**
    * Execute autonomous multi-step tasks
    * @param {string} goal - The goal to achieve
-   * @param {Object} options - Additional options
+   * @param {Object} options - Additional options like provider and model
    */
   async agent(goal, options = {}) {
     try {
       console.log(`🤖 Agent executing: "${goal}"`);
 
-      const result = await this.stagehand.agent({
-        goal,
+      // Create agent with specified provider/model or defaults
+      const agentInstance = this.stagehand.agent({
+        provider: options.provider || "openai",
+        model: options.model || "gpt-4o",
         ...options
       });
+
+      // Execute the goal
+      const result = await agentInstance.execute(goal);
 
       console.log('✅ Agent task completed');
       return result;
