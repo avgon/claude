@@ -1,11 +1,11 @@
 ---
 name: browser-automation
-description: AI-powered browser automation using Stagehand for n8n, Make, and Weavy.ai workflows
+description: AI-powered browser automation using Stagehand for n8n, Make, and Weavy.ai workflows (project)
 ---
 
 # Browser Automation Skill
 
-Control web browsers using natural language instructions powered by Stagehand.
+Control web browsers using natural language instructions powered by Stagehand. Compatible with agent-browse architecture.
 
 ## When to Use This Skill
 
@@ -16,6 +16,30 @@ Use this skill when you need to:
 - Test web interfaces
 - Fill forms automatically
 - Navigate and interact with websites using natural language
+
+## Usage Methods
+
+### Method 1: CLI Commands (Recommended for Claude Code)
+
+Use bash commands to control the browser. The browser stays open between commands for faster operations.
+
+**Available commands:**
+```bash
+node src/cli.js navigate <url>           # Navigate to a URL
+node src/cli.js act "<action>"           # Perform natural language action
+node src/cli.js extract "<instruction>"  # Extract data from page
+node src/cli.js observe "<query>"        # Discover elements on page
+node src/cli.js agent "<goal>"           # Execute multi-step autonomous goal
+node src/cli.js screenshot               # Take a screenshot
+node src/cli.js info                     # Get current page info
+node src/cli.js close                    # Close the browser
+```
+
+All commands output JSON with success status and relevant data.
+
+### Method 2: Direct JavaScript API
+
+For programmatic usage and custom scripts.
 
 ## Available Capabilities
 
@@ -46,7 +70,59 @@ await agent.agent('Create a webhook workflow with HTTP request nodes');
 await agent.screenshot('workflow-created.png');
 ```
 
-## Examples
+## CLI Examples
+
+### Example 1: Simple Navigation and Action
+```bash
+# Navigate to a website
+node src/cli.js navigate "https://example.com"
+# Output: { "success": true, "message": "Successfully navigated...", "screenshot": "..." }
+
+# Perform an action
+node src/cli.js act "click the login button"
+# Output: { "success": true, "message": "Successfully performed action...", "screenshot": "..." }
+
+# Take screenshot
+node src/cli.js screenshot
+# Output: { "success": true, "screenshot": "/path/to/screenshot.png" }
+
+# Close browser when done
+node src/cli.js close
+# Output: { "success": true, "message": "Browser closed" }
+```
+
+### Example 2: Multi-Step Workflow
+```bash
+# Navigate to n8n
+node src/cli.js navigate "https://app.n8n.cloud/"
+
+# Login
+node src/cli.js act "enter 'user@example.com' in the email field"
+node src/cli.js act "enter 'password123' in the password field"
+node src/cli.js act "click the login button"
+
+# Extract workflows
+node src/cli.js extract "get all workflow names and their status"
+# Output: { "success": true, "data": { "workflows": [...] }, "screenshot": "..." }
+
+# Close browser
+node src/cli.js close
+```
+
+### Example 3: Using Agent for Complex Goals
+```bash
+# Navigate first
+node src/cli.js navigate "https://app.n8n.cloud/workflows"
+
+# Let the agent handle multi-step task
+node src/cli.js agent "Create a new workflow with a webhook trigger and HTTP request node, then save it"
+# The agent will autonomously complete all steps
+
+# Close when done
+node src/cli.js close
+```
+
+## JavaScript API Examples
 
 ### Example 1: Login to n8n
 ```javascript

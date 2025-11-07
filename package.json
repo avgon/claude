@@ -4,8 +4,12 @@
   "description": "AI browser automation skill for Claude Code using Stagehand",
   "main": "src/index.js",
   "type": "module",
+  "bin": {
+    "browser": "./src/cli.js"
+  },
   "scripts": {
     "browse": "node src/browser-agent.js",
+    "cli": "node src/cli.js",
     "install:deps": "npm install",
     "example:complete": "node src/examples/complete-automation-example.js complete",
     "example:research": "node src/examples/complete-automation-example.js research",
@@ -29,7 +33,10 @@
     "automation",
     "n8n",
     "make",
-    "weavy"
+    "weavy",
+    "claude-code",
+    "agent-browse",
+    "cli"
   ],
   "author": "Claude Code",
   "license": "MIT"
