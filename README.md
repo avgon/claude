@@ -1,6 +1,8 @@
 # 🎭 Stagehand Browser Agent for Claude Code
 
-AI-powered browser automation skill with enhanced capabilities for workflow automation. Integrates Stagehand, Tavily, memory management, and token optimization for efficient automation creation.
+AI-powered browser automation skill following **agent-browse** architecture pattern. Built as a Claude Code skill with proper Stagehand integration for n8n, Make, and Weavy.ai workflow automation.
+
+> **⚠️ IMPORTANT**: This implementation uses the CORRECT Stagehand API pattern. Methods like `act()`, `extract()`, and `observe()` are called on the `page` object, not the `stagehand` object. See [IMPLEMENTATION_SUMMARY.md](./IMPLEMENTATION_SUMMARY.md) for details.
 
 ## 🌟 Features
 
@@ -40,6 +42,16 @@ AI-powered browser automation skill with enhanced capabilities for workflow auto
 - Context-aware project understanding
 - Runs as MCP server in background
 
+## 🎯 Claude Code Skill
+
+This project is structured as a **Claude Code skill** following the agent-browse architecture:
+
+```
+.claude/skills/browser-automation/SKILL.md
+```
+
+The skill automatically integrates with Claude Code when the project is loaded, enabling natural language browser automation.
+
 ## 🚀 Quick Start
 
 ### Installation
@@ -69,9 +81,32 @@ const agent = new BrowserAgent();
 
 await agent.init();
 await agent.goto('https://example.com');
+
+// Use natural language for actions
 await agent.act('click the login button');
-await agent.extract('get all product names');
+
+// Extract structured data
+const data = await agent.extract('get all product names');
+
+// Multi-step autonomous tasks
+await agent.agent('Complete the login and navigate to dashboard');
+
 await agent.close();
+```
+
+### ✅ Correct Stagehand API Usage
+
+**Important:** Methods are called on the `page` object internally:
+
+```javascript
+// CORRECT (in browser-agent.js)
+await this.page.act(instruction);
+await this.page.extract(options);
+await this.page.observe(instruction);
+
+// Agent uses different pattern
+const agentInstance = this.stagehand.agent({ provider: "openai" });
+await agentInstance.execute(goal);
 ```
 
 ## 📚 Examples
