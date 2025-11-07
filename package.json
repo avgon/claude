@@ -7,11 +7,20 @@
   "scripts": {
     "browse": "node src/browser-agent.js",
     "install:deps": "npm install",
-    "test": "node src/examples/test-automation.js"
+    "example:complete": "node src/examples/complete-automation-example.js complete",
+    "example:research": "node src/examples/complete-automation-example.js research",
+    "example:n8n": "node src/examples/automation-flows.js",
+    "search": "node src/integrations/tavily-search.js",
+    "tokenize": "node src/integrations/token-efficiency.js"
   },
   "dependencies": {
     "@browserbasehq/stagehand": "^2.0.0",
-    "dotenv": "^16.4.5"
+    "@browserbasehq/agent-browse": "latest",
+    "@tavily/core": "^1.0.0",
+    "@supermemory/tools": "^1.0.0",
+    "gpt-tokenizer": "^2.4.0",
+    "dotenv": "^16.4.5",
+    "@modelcontextprotocol/sdk": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0"
