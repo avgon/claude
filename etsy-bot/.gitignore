@@ -33,6 +33,7 @@ venv.bak/
 # Config Files (IMPORTANT - Contains sensitive data!)
 config/emails.txt
 config/keywords.txt
+config/listings.txt
 config/proxies.txt
 
 # Keep example files

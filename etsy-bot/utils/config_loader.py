@@ -50,6 +50,38 @@ class ConfigLoader:
 
         return keywords
 
+    def load_listings(self) -> List[dict]:
+        """
+        Load listing ID and keywords from listings.txt.
+
+        Returns:
+            List of dicts with 'listing_id' and 'keywords' (list of strings)
+        """
+        listings = []
+        file_path = os.path.join(self.config_dir, "listings.txt")
+
+        if not os.path.exists(file_path):
+            raise FileNotFoundError(f"Listings file not found: {file_path}")
+
+        with open(file_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#'):
+                    if ':' in line:
+                        listing_id, keywords_str = line.split(':', 1)
+                        keywords = [k.strip() for k in keywords_str.split(',') if k.strip()]
+
+                        if listing_id.strip() and keywords:
+                            listings.append({
+                                'listing_id': listing_id.strip(),
+                                'keywords': keywords
+                            })
+
+        if not listings:
+            raise ValueError("No valid listings found in listings.txt")
+
+        return listings
+
     def load_proxies(self) -> List[dict]:
         """Load proxies from proxies.txt."""
         proxies = []
