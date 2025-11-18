@@ -1,6 +1,5 @@
 # Her satıra bir listing ID ve arama keywordleri ekleyin
 # Format: listing_id:keyword1,keyword2,keyword3
-# Örnek:
-# 1802588667:wolf pendant,nordic wolf,fenrir necklace
-# 1234567890:vintage lamp,retro light,desk lamp
-# 9876543210:handmade bracelet,silver bracelet,custom jewelry
+
+# Wolf pendant örneği
+1802588667:wolf pendant,nordic wolf,fenrir necklace,viking wolf jewelry
