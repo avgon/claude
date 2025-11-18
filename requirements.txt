@@ -1,0 +1,4 @@
+selenium>=4.23
+PyYAML>=6.0
+pydantic>=2.7
+fake-useragent>=1.5
